@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SalsaInOttawa</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- App colors -->
+    <color name="amber_100">#FFECB3</color>
+    <color name="cyan_a100">#84FFFF</color>
+    <color name="cyan_a200">#18FFFF</color>
+    <color name="cyan_a400">#00E5FF</color>
+
+    <string name="title_activity_event_list">EventListActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_event_details">EventDetails</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

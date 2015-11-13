@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/amber_100"
+    android:weightSum="1"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:id="@+id/search_result_title"
+        android:text="Here are the events..."
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="#795548"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:background="@color/amber_100"
+        android:id="@+id/theListView"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="4sp"
+        android:drawSelectorOnTop="true"></ListView>
+
+</LinearLayout>
