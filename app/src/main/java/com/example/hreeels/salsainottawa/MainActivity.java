@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.factory.EventFactory;
+import com.example.hreeels.salsainottawa.server.QueryClient;
+import com.example.hreeels.salsainottawa.server.ServerConnection;
 import com.example.hreeels.salsainottawa.utils.AppUtils;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements QueryClient {
 
     // GUI Elements
     private TextView iTitleCaption;
@@ -34,38 +36,19 @@ public class MainActivity extends ActionBarActivity {
 
     // Data Attributes
     private ArrayList<Event> iQueryResults; /* The query results retrieved from the database */
+    private ServerConnection iServer; /* The class used to communicate with the server */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        iServer = ServerConnection.getDefault();
+
         // Initialize and prepare the view's components
         initializeViewComponents();
         decorateComponents();
         initializeActionListeners();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -129,14 +112,7 @@ public class MainActivity extends ActionBarActivity {
         iSearchCustomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Searching for events on a date...",
-                        Toast.LENGTH_SHORT).show();
-
-                // Make the progress bar visible
-                findViewById(R.id.retrieving_events_bar).setVisibility(View.VISIBLE);
-
-                // Search for the events on a specific date
-                searchForEventsTonight();
+                onSearchByDatePressed();
             }
         });
     }
@@ -178,5 +154,35 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    /**
+     * On Click listener for search by date button.
+     */
+    public void onSearchByDatePressed() {
+        // Pop up a toast
+        Toast.makeText(MainActivity.this, "Searching for events on a date...",
+                Toast.LENGTH_SHORT).show();
+
+        // Make the progress bar visible
+        findViewById(R.id.retrieving_events_bar).setVisibility(View.VISIBLE);
+
+        // Execute the query using the server
+        iServer.getAllEvents(this);
+    }
+
+    /**
+     * Uses the event list to start the event list activity.
+     *
+     * @param aQueryResult the result of the query
+     */
+    public void queryDone(ArrayList<Event> aQueryResult) {
+        // Make the progress bar invisible
+        findViewById(R.id.retrieving_events_bar).setVisibility(View.GONE);
+
+        // Set up an intent, pass in the query results, and start the event list activity
+        Intent myIntent = new Intent(MainActivity.this, EventListActivity.class);
+        myIntent.putParcelableArrayListExtra("queryResult", aQueryResult);
+        MainActivity.this.startActivity(myIntent);
     }
 }
