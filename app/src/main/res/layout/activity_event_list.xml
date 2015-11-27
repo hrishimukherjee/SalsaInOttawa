@@ -29,6 +29,9 @@
         android:id="@+id/theListView"
         android:divider="@android:color/transparent"
         android:dividerHeight="4sp"
-        android:drawSelectorOnTop="true"></ListView>
+        android:drawSelectorOnTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:scrollbars="none"></ListView>
 
 </LinearLayout>

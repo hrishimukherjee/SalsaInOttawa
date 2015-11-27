@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class EventAdapter extends ArrayAdapter<Event> {
 
     /*
-    Keeps a list of background colors
+    Keeps a list of background drawables
     for each unique position in the list view.
      */
-    private ArrayList<Integer> iViewBackgroundColors;
+    private ArrayList<Integer> iViewBackgroundDrawables;
 
     public EventAdapter(Context context, ArrayList<Event> values) {
         // Used for row_layout_2
@@ -31,43 +31,40 @@ public class EventAdapter extends ArrayAdapter<Event> {
         // Used for row_layout_3
         super(context, R.layout.event_list_row_layout, values);
 
-        // Initialize background colors for view
-        iViewBackgroundColors = new ArrayList<Integer>();
-        this.initializeBackgroundColors();
+        // Initialize background drawables for view
+        iViewBackgroundDrawables = new ArrayList<Integer>();
+        this.initializeBackgroundDrawables();
     }
 
     /*
-    Returns the background color for the view at the position provided.
+    Returns the background drawable for the view at the position provided.
      */
-    private int getBackgroundColorAtPosition(int position) {
-        return iViewBackgroundColors.get(position);
+    private int getBackgroundDrawableAtPosition(int position) {
+        return iViewBackgroundDrawables.get(position);
     }
 
     /*
-    Sets a unique color for each position in the background color list.
-    The colors cycle between 3 different ones.
+    Sets a unique drawable for each position in the background color list.
+    The drawables cycle between 3 different ones.
      */
-    private void initializeBackgroundColors() {
-        int currentColorID = 0;
+    private void initializeBackgroundDrawables() {
+        int currentBackgroundID = 0;
 
         for(int i = 0; i < getCount(); i++) {
             // Set 1 of 3 unique colors to each position in ArrayList
-            if(currentColorID == 0) {
-                iViewBackgroundColors.add(
-                        getContext().getResources().getColor(R.color.cyan_a100));
-            } else if(currentColorID == 1) {
-                iViewBackgroundColors.add(
-                        getContext().getResources().getColor(R.color.cyan_a200));
+            if(currentBackgroundID == 0) {
+                iViewBackgroundDrawables.add(R.drawable.rounded_button_cyan_a100);
+            } else if(currentBackgroundID == 1) {
+                iViewBackgroundDrawables.add(R.drawable.rounded_button_cyan_a200);
             } else {
-                iViewBackgroundColors.add(
-                        getContext().getResources().getColor(R.color.cyan_a400));
+                iViewBackgroundDrawables.add(R.drawable.rounded_button_cyan_a400);
             }
 
             // Cycle color ID between 0 and 2
-            if(currentColorID < 2) {
-                currentColorID++;
+            if(currentBackgroundID < 2) {
+                currentBackgroundID++;
             } else {
-                currentColorID = 0;
+                currentBackgroundID = 0;
             }
         }
     }
@@ -82,7 +79,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         LayoutInflater theInflater = LayoutInflater.from(getContext());
 
         View theView = theInflater.inflate(R.layout.event_list_row_layout, parent, false);
-        theView.setBackgroundColor(this.getBackgroundColorAtPosition(position));
+        theView.setBackgroundResource(this.getBackgroundDrawableAtPosition(position));
 
         Event myEvent = getItem(position);
 
