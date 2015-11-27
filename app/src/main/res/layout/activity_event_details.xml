@@ -34,7 +34,8 @@
         android:layout_height="0dp"
         android:weightSum="1"
         android:layout_weight="0.15"
-        android:background="#ffffcc"
+        android:background="@drawable/rounded_background_ffffcc"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
