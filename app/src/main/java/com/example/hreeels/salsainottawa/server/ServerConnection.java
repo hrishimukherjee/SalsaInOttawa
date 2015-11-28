@@ -4,12 +4,16 @@ import android.util.Log;
 
 import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.factory.EventFactory;
+import com.example.hreeels.salsainottawa.utils.AppUtils;
+import com.example.hreeels.salsainottawa.utils.Constants;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,9 +43,26 @@ public class ServerConnection {
      *
      * @param aReceiverClass the class which called this function
      */
-    public void getAllEvents(final QueryClient aReceiverClass) {
+    public void getAllEventsBetweenDates(final QueryClient aReceiverClass,
+                                         Date aLowerBound,
+                                         Date aUpperBound) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
 
+        /*
+        Offset the date filters from PST to EST. This is done because PARSE stores
+        dates in PST whereas this app uses EST as it's time-zone.
+         */
+        aLowerBound = AppUtils.applyHourOffsetToDate(aLowerBound, Constants.PST_TO_EST_OFFSET);
+        aUpperBound = AppUtils.applyHourOffsetToDate(aUpperBound, Constants.PST_TO_EST_OFFSET);
+
+        // BUG: Offset lower bound by -1 second since greaterThanOrEqualTo behaving as greaterThan
+        aLowerBound = AppUtils.applySecondsOffsetToDate(aLowerBound, -1);
+
+        // Apply date filters
+        query.whereGreaterThanOrEqualTo("event_date", aLowerBound);
+        query.whereLessThanOrEqualTo("event_date", aUpperBound);
+
+        // Include event related venue and organizer objects
         query.include("venue_id");
         query.include("organizer_id");
 
@@ -61,7 +82,8 @@ public class ServerConnection {
                     // Pass in the results to the reciewer class
                     aReceiverClass.queryDone(iQueryResults);
                 } else {
-                    Log.d("getAllEvents()", "Error: " + e.getMessage());
+                    Log.d("getAll" +
+                            "BetweenDates()", "Error: " + e.getMessage());
                 }
             }
         });

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.server.QueryClient;
 import com.example.hreeels.salsainottawa.server.ServerConnection;
+import com.example.hreeels.salsainottawa.utils.AppUtils;
 
 import java.util.ArrayList;
 
@@ -103,7 +104,9 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         findViewById(R.id.retrieving_events_bar).setVisibility(View.VISIBLE);
 
         // Execute the query using the server
-        iServer.getAllEvents(this);
+        iServer.getAllEventsBetweenDates(this,
+                AppUtils.getFirstMinuteOfToday(),
+                AppUtils.getLastMinuteOfToday());
     }
 
     /**
@@ -118,7 +121,7 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         findViewById(R.id.retrieving_events_bar).setVisibility(View.VISIBLE);
 
         // Execute the query using the server
-        iServer.getAllEvents(this);
+        //iServer.getAllEventsBetweenDates(this);
     }
 
     /**
@@ -133,7 +136,7 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         findViewById(R.id.retrieving_events_bar).setVisibility(View.VISIBLE);
 
         // Execute the query using the server
-        iServer.getAllEvents(this);
+        //iServer.getAllEventsBetweenDates(this);
     }
 
     /**
