@@ -10,13 +10,16 @@ import java.util.GregorianCalendar;
 public class DateUtils {
 
     /**
-     * Returns the absolute first minute of today's date.
-     * For example: Nov 28, 2015 00:00:00 EST
+     * Returns the lowest time of the given date.
+     * For example: For a given date Nov 28, 2015
+     * - this function would return Nov 28, 2015 00:00:00.
      *
-     * @return the Date set to the first minute of today
+     * @param aDate the Date to be set to the lower bound
+     * @return the update Date object
      */
-    public static Date getFirstMinuteOfToday() {
+    public static Date getDateLowerBound(Date aDate) {
         GregorianCalendar lCalendar = new GregorianCalendar();
+        lCalendar.setTime(aDate);
 
         lCalendar.set(Calendar.HOUR_OF_DAY, 0);
         lCalendar.set(Calendar.MINUTE, 0);
@@ -26,19 +29,68 @@ public class DateUtils {
     }
 
     /**
-     * Returns the absolute last minute of today's date.
-     * For example: Nov 28, 2015 23:59:59 EST
+     * Returns the highest time of the given date.
+     * For example: For a given date Nov 28, 2015
+     * - this function would return Nov 28, 2015 23:59:59.
      *
-     * @return the Date set to the last minute of today
+     * @param aDate the Date to be set to the lower bound
+     * @return the update Date object
      */
-    public static Date getLastMinuteOfToday() {
+    public static Date getDateUpperBound(Date aDate) {
         GregorianCalendar lCalendar = new GregorianCalendar();
+        lCalendar.setTime(aDate);
 
         lCalendar.set(Calendar.HOUR_OF_DAY, 23);
         lCalendar.set(Calendar.MINUTE, 59);
         lCalendar.set(Calendar.SECOND, 59);
 
         return lCalendar.getTime();
+    }
+
+    /**
+     * Returns the absolute first minute of today's date.
+     * For example: Nov 28, 2015 00:00:00 EST
+     *
+     * @return the Date set to the first minute of today
+     */
+    public static Date getTodayLowerBound() {
+        return DateUtils.getDateLowerBound(
+                new GregorianCalendar().getTime());
+    }
+
+    /**
+     * Returns the absolute last minute of today's date.
+     * For example: Nov 28, 2015 23:59:59 EST
+     *
+     * @return the Date set to the last minute of today
+     */
+    public static Date getTodayUpperBound() {
+        return DateUtils.getDateUpperBound(
+                new GregorianCalendar().getTime());
+    }
+
+    /**
+     * Returns the Date for the start of the weekend (Friday 00:00:00).
+     *
+     * @return the Date signifying the start of the weekend
+     */
+    public static Date getWeekendLowerBound() {
+        GregorianCalendar lCalendar = new GregorianCalendar();
+        lCalendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+
+        return getDateLowerBound(lCalendar.getTime());
+    }
+
+    /**
+     * Returns the Date for the end of the weekend (Sunday 00:00:00).
+     *
+     * @return the Date signifying the start of the weekend
+     */
+    public static Date getWeekendUpperBound() {
+        GregorianCalendar lCalendar = new GregorianCalendar();
+        lCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
+        return getDateUpperBound(lCalendar.getTime());
     }
 
     /**
