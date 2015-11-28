@@ -6,6 +6,7 @@ import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.factory.EventFactory;
 import com.example.hreeels.salsainottawa.utils.AppUtils;
 import com.example.hreeels.salsainottawa.utils.Constants;
+import com.example.hreeels.salsainottawa.utils.DateUtils;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -52,11 +53,11 @@ public class ServerConnection {
         Offset the date filters from PST to EST. This is done because PARSE stores
         dates in PST whereas this app uses EST as it's time-zone.
          */
-        aLowerBound = AppUtils.applyHourOffsetToDate(aLowerBound, Constants.PST_TO_EST_OFFSET);
-        aUpperBound = AppUtils.applyHourOffsetToDate(aUpperBound, Constants.PST_TO_EST_OFFSET);
+        aLowerBound = DateUtils.applyHourOffsetToDate(aLowerBound, Constants.PST_TO_EST_OFFSET);
+        aUpperBound = DateUtils.applyHourOffsetToDate(aUpperBound, Constants.PST_TO_EST_OFFSET);
 
         // BUG: Offset lower bound by -1 second since greaterThanOrEqualTo behaving as greaterThan
-        aLowerBound = AppUtils.applySecondsOffsetToDate(aLowerBound, -1);
+        aLowerBound = DateUtils.applySecondsOffsetToDate(aLowerBound, -1);
 
         // Apply date filters
         query.whereGreaterThanOrEqualTo("event_date", aLowerBound);

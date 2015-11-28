@@ -13,8 +13,10 @@ import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.server.QueryClient;
 import com.example.hreeels.salsainottawa.server.ServerConnection;
 import com.example.hreeels.salsainottawa.utils.AppUtils;
+import com.example.hreeels.salsainottawa.utils.DateUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class MainActivity extends ActionBarActivity implements QueryClient {
@@ -105,8 +107,8 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
 
         // Execute the query using the server
         iServer.getAllEventsBetweenDates(this,
-                AppUtils.getFirstMinuteOfToday(),
-                AppUtils.getLastMinuteOfToday());
+                DateUtils.getFirstMinuteOfToday(),
+                DateUtils.getLastMinuteOfToday());
     }
 
     /**
