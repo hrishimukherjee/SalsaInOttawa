@@ -1,17 +1,21 @@
 package com.example.hreeels.salsainottawa;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.server.QueryClient;
 import com.example.hreeels.salsainottawa.server.ServerConnection;
+import com.example.hreeels.salsainottawa.utils.Constants;
 import com.example.hreeels.salsainottawa.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -133,15 +137,8 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
      * On click listener for search by date button.
      */
     public void onSearchByDatePressed() {
-        // Pop up a toast
-        Toast.makeText(MainActivity.this, "Searching for events on a date...",
-                Toast.LENGTH_SHORT).show();
-
-        // Make the progress bar visible
-        findViewById(R.id.retrieving_events_bar).setVisibility(View.VISIBLE);
-
-        // Execute the query using the server
-        //iServer.getAllEventsBetweenDates(this);
+        // Pop up a date picker dialog
+        showDialog(Constants.DATE_PICKER_DIALOG_ID);
     }
 
     /**
@@ -158,4 +155,50 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         myIntent.putParcelableArrayListExtra("queryResult", aQueryResult);
         MainActivity.this.startActivity(myIntent);
     }
+
+    /**
+     * Handles dialog creation.
+     *
+     * @param aId ID of the dialog which called the function
+     * @return Dialog of the specified ID
+     */
+    @Override
+    protected Dialog onCreateDialog(int aId) {
+        switch (aId) {
+            case Constants.DATE_PICKER_DIALOG_ID:
+                Calendar lCurrentDate = DateUtils.getCurrentCalendar();
+
+                // Set the date picker to the current date
+                return new DatePickerDialog(this, iDatePickerListener,
+                        lCurrentDate.get(Calendar.YEAR),
+                        lCurrentDate.get(Calendar.MONTH),
+                        lCurrentDate.get(Calendar.DATE));
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener iDatePickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+
+        /**
+         * Retrieves the date information from the user's selection,
+         * and uses this information to send a query request.
+         *
+         * @param aView the date picker view
+         * @param aSelectedYear the user selected year
+         * @param aSelectedMonth the user selected month
+         * @param aSelectedDay the user selected date
+         */
+        public void onDateSet(DatePicker aView, int aSelectedYear,
+                              int aSelectedMonth, int aSelectedDay) {
+            Date lLowerBound = DateUtils.createCustomDate(aSelectedYear,
+                    aSelectedMonth, aSelectedDay);
+
+            Date lUpperBound = DateUtils.getDateUpperBound(lLowerBound);
+
+            // Execute the query for events
+            iServer.getAllEventsBetweenDates(MainActivity.this,
+                    lLowerBound, lUpperBound);
+        }
+    };
 }

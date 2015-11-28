@@ -10,6 +10,33 @@ import java.util.GregorianCalendar;
 public class DateUtils {
 
     /**
+     * Returns the current system date and time.
+     *
+     * @return Calendar object of current system date and time
+     */
+    public static GregorianCalendar getCurrentCalendar() {
+        return new GregorianCalendar();
+    }
+
+    /**
+     * Creates a custom date with a year, month, and date.
+     *
+     * @param aYear the year of the date
+     * @param aMonth the month of the date
+     * @param aDate the day of the date
+     * @return the Date object
+     */
+    public static Date createCustomDate(int aYear, int aMonth, int aDate) {
+        GregorianCalendar lCalendar = DateUtils.getCurrentCalendar();
+
+        lCalendar.set(Calendar.YEAR, aYear);
+        lCalendar.set(Calendar.MONTH, aMonth);
+        lCalendar.set(Calendar.DATE, aDate);
+
+        return DateUtils.getDateLowerBound(lCalendar.getTime());
+    }
+
+    /**
      * Returns the lowest time of the given date.
      * For example: For a given date Nov 28, 2015
      * - this function would return Nov 28, 2015 00:00:00.
