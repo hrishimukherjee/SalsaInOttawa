@@ -159,7 +159,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.45"
+        android:layout_weight="0.55"
         android:weightSum="1"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -179,33 +179,73 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.25">
+        android:layout_weight="0.15"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/description_component"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_button_cyan_a100"
+            android:layout_margin="10dp"
+            android:weightSum="1"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/description_icon_128"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="10dp"
-                android:id="@+id/description_header"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:padding="10dp"
-                android:id="@+id/event_description"/>
+                android:id="@+id/description_header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:textSize="23dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center"/>
 
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:id="@+id/organizer_component"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_button_cyan_a100"
+            android:layout_margin="10dp"
+            android:weightSum="1"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/oganizer_icon_128"/>
+
+            <TextView
+                android:id="@+id/organizer_header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:textSize="23dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

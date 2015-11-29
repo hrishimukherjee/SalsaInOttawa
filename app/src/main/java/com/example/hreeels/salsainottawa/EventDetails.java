@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hreeels.salsainottawa.core.Event;
@@ -31,16 +32,19 @@ public class EventDetails extends ActionBarActivity {
 
     private static final int INFO_VIEW_POPUP_DELAY = 2500;
     private static final String DEFAULT_DESCRIPTION_HEADER = "DESCRIPTION";
+    private static final String DEFAULT_ORGANIZER_HEADER = "ORGANIZER";
 
     // GUI Elements
     private TextView iEventTitle;
-    private TextView iEventDescription;
     private TextView iEventStartTime;
     private TextView iEventEndTime;
     private TextView iEventDateMonth;
     private TextView iEventDateDay;
     private TextView iEventPrice;
+    private LinearLayout iDescriptonComponent;
     private TextView iEventDescriptionHeader;
+    private LinearLayout iOrganizerComponent;
+    private TextView iOrganizerHeader;
 
     // Data Attributes
     private Event iEventData;
@@ -97,6 +101,7 @@ public class EventDetails extends ActionBarActivity {
         initializeViewComponents();
 
         iEventDescriptionHeader.setText(DEFAULT_DESCRIPTION_HEADER);
+        iOrganizerHeader.setText(DEFAULT_ORGANIZER_HEADER);
 
         custom_font = Typeface.createFromAsset(getAssets(), "bebas_neue_regular.ttf");
         custom_font_bold = Typeface.createFromAsset(getAssets(), "bebas_neue_bold.ttf");
@@ -125,13 +130,15 @@ public class EventDetails extends ActionBarActivity {
      */
     private void initializeViewComponents() {
         iEventTitle = (TextView) findViewById(R.id.event_title);
-        iEventDescription = (TextView) findViewById(R.id.event_description);
         iEventStartTime = (TextView) findViewById(R.id.event_start_time);
         iEventEndTime = (TextView) findViewById(R.id.event_end_time);
         iEventDateMonth = (TextView) findViewById(R.id.event_date_month);
         iEventDateDay = (TextView) findViewById(R.id.event_date_day);
         iEventPrice = (TextView) findViewById(R.id.event_price);
+        iDescriptonComponent = (LinearLayout) findViewById(R.id.description_component);
         iEventDescriptionHeader = (TextView) findViewById(R.id.description_header);
+        iOrganizerComponent = (LinearLayout) findViewById(R.id.organizer_component);
+        iOrganizerHeader = (TextView) findViewById(R.id.organizer_header);
     }
 
     /**
@@ -144,8 +151,8 @@ public class EventDetails extends ActionBarActivity {
         iEventDateMonth.setTypeface(custom_font_bold);
         iEventDateDay.setTypeface(custom_font_bold);
         iEventPrice.setTypeface(custom_font_bold);
-        iEventDescription.setTypeface(custom_small_font);
-        iEventDescriptionHeader.setTypeface(custom_font);
+        iEventDescriptionHeader.setTypeface(custom_font_bold);
+        iOrganizerHeader.setTypeface(custom_font_bold);
     }
 
     /**
@@ -166,7 +173,7 @@ public class EventDetails extends ActionBarActivity {
 
         setEventPrice(aUpdatedEvent.getCost());
 
-        setEventDescription(aUpdatedEvent.getDescription());
+       // setEventDescription(aUpdatedEvent.getDescription());
 
         updateMap(AppUtils.getLocationFromAddress(this, this.getEventData().getVenueAddress()),
                 this.getEventData().getVenueTitle());
@@ -270,9 +277,5 @@ public class EventDetails extends ActionBarActivity {
         } else {
             iEventPrice.setText("$" + aPrice);
         }
-    }
-
-    public void setEventDescription(String aDescription) {
-        iEventDescription.setText(aDescription);
     }
 }
