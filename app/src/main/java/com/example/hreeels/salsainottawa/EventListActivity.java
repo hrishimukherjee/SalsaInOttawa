@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.utils.EventAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -35,26 +36,41 @@ public class EventListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_event_list);
 
         // Initialize the components of the screen
-        initialzeViewComponents();
+        initializeViewComponents();
 
         // Retrieve the query results from the intent
         iEventList = getIntent().getParcelableArrayListExtra("queryResult");
 
-        for(Event lEvent: iEventList) {
-            Log.d("activity2", lEvent.toString());
-        }
+        // Setup the activity
+        setupActivity(iEventList);
+    }
 
-        // GROOMING of GUI
+    /**
+     * Sets up the activity with the provided list of events.
+     *
+     * @param aEventList
+     */
+    public void setupActivity(ArrayList<Event> aEventList) {
         Typeface customFont = Typeface.createFromAsset(getAssets(), "bebas_neue_regular.ttf");
-        Typeface customFontBold = Typeface.createFromAsset(getAssets(), "bebas_neue_bold.ttf");
-
         iSearchResultTitle.setTypeface(customFont);
 
-        // Initialize the Array Adapter with the event list
-        ArrayAdapter theAdapter = new EventAdapter(this, iEventList);
+        activateActionListeners();
 
-        iSearchResultList.setAdapter(theAdapter);
+        updateEventList(aEventList);
+    }
 
+    /**
+     * Initializes the view components of the activity.
+     */
+    public void initializeViewComponents() {
+        iSearchResultTitle = (TextView) findViewById(R.id.search_result_title);
+        iSearchResultList = (ListView) findViewById(R.id.theListView);
+    }
+
+    /**
+     * Activates all the action listeners for the components in the activity.
+     */
+    public void activateActionListeners() {
         iSearchResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,35 +84,21 @@ public class EventListActivity extends ActionBarActivity {
                 myIntent.putExtra("eventPicked", eventPicked);
                 EventListActivity.this.startActivity(myIntent);
 
-               // Toast.makeText(EventListActivity.this, displayString, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(EventListActivity.this, displayString, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_list, menu);
-        return true;
-    }
+    /**
+     * Updates the activity with the latest event list passed in
+     * through the parameter.
+     *
+     * @param aEventList the new event list to display
+     */
+    public void updateEventList(ArrayList<Event> aEventList) {
+        // Initialize the Array Adapter with the event list
+        ArrayAdapter theAdapter = new EventAdapter(this, aEventList);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void initialzeViewComponents() {
-        iSearchResultTitle = (TextView) findViewById(R.id.search_result_title);
-        iSearchResultList = (ListView) findViewById(R.id.theListView);
+        iSearchResultList.setAdapter(theAdapter);
     }
 }
