@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hreeels.salsainottawa.core.Event;
+import com.example.hreeels.salsainottawa.dialog.DescriptionDialog;
+import com.example.hreeels.salsainottawa.dialog.OrganizerDialog;
 import com.example.hreeels.salsainottawa.utils.AppUtils;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -99,6 +101,7 @@ public class EventDetails extends ActionBarActivity {
     private void setupActivity(Event aEventData, GoogleMap aMap) {
         initializeData(aEventData, aMap);
         initializeViewComponents();
+        activateActionListeners();
 
         iEventDescriptionHeader.setText(DEFAULT_DESCRIPTION_HEADER);
         iOrganizerHeader.setText(DEFAULT_ORGANIZER_HEADER);
@@ -153,6 +156,31 @@ public class EventDetails extends ActionBarActivity {
         iEventPrice.setTypeface(custom_font_bold);
         iEventDescriptionHeader.setTypeface(custom_font_bold);
         iOrganizerHeader.setTypeface(custom_font_bold);
+    }
+
+    /**
+     * Activates all the action listeners for the clickable
+     * components of the activity.
+     */
+    public void activateActionListeners() {
+        // Initialize the dialog for the description and pop it up
+        iDescriptonComponent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DescriptionDialog lDialog = new DescriptionDialog(EventDetails.this,
+                        iEventData.getDescription());
+                lDialog.show();
+            }
+        });
+
+        iOrganizerComponent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrganizerDialog lDialog = new OrganizerDialog(EventDetails.this,
+                        iEventData.getOrganizer());
+                lDialog.show();
+            }
+        });
     }
 
     /**
