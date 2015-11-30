@@ -15,13 +15,13 @@ import android.widget.Toast;
 import com.example.hreeels.salsainottawa.core.Event;
 import com.example.hreeels.salsainottawa.server.QueryClient;
 import com.example.hreeels.salsainottawa.server.ServerConnection;
+import com.example.hreeels.salsainottawa.utils.AppUtils;
 import com.example.hreeels.salsainottawa.utils.Constants;
 import com.example.hreeels.salsainottawa.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 public class MainActivity extends ActionBarActivity implements QueryClient {
@@ -45,7 +45,18 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         // Initialize and prepare the view's components
         initializeViewComponents();
         decorateComponents();
-        initializeActionListeners();
+        activateActionListeners();
+    }
+
+    /**
+     * Re-enables the action listeners once the activity
+     * comes back into the foreground.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        
+        activateActionListeners();
     }
 
     /**
@@ -70,14 +81,17 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         iSearchCustomButton.setTypeface(customFontBold);
     }
 
-    /*
-    Initializes the action listeners for all components in the view.
+    /**
+     * Initializes the action listeners for all components in the view.
      */
-    public void initializeActionListeners() {
+
+    public void activateActionListeners() {
         // Initialize the click listener for the search tonight button
         iSearchTonightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                deactivateActionListeners();
+
                 onSearchTonightPressed();
             }
         });
@@ -86,6 +100,8 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         iSearchWeekendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                deactivateActionListeners();
+
                 onSearchWeekendPressed();
             }
         });
@@ -94,9 +110,20 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
         iSearchCustomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                deactivateActionListeners();
+
                 onSearchByDatePressed();
             }
         });
+    }
+
+    /**
+     * Deactivates all the action listeners.
+     */
+    public void deactivateActionListeners() {
+        iSearchTonightButton.setOnClickListener(null);
+        iSearchWeekendButton.setOnClickListener(null);
+        iSearchCustomButton.setOnClickListener(null);
     }
 
     /**
@@ -199,6 +226,12 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
             // Execute the query for events
             iServer.getAllEventsBetweenDates(MainActivity.this,
                     lLowerBound, lUpperBound);
+
+            // Pop up a toast
+            Toast.makeText(MainActivity.this, "Searching for events on " +
+                            AppUtils.getMonthString(aSelectedMonth) + " " +
+                    aSelectedDay + "...",
+                    Toast.LENGTH_SHORT).show();
         }
     };
 }
