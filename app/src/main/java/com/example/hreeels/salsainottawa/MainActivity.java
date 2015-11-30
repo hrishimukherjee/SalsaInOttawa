@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
     @Override
     public void onResume() {
         super.onResume();
-        
+
         activateActionListeners();
     }
 
@@ -226,6 +226,9 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
             // Execute the query for events
             iServer.getAllEventsBetweenDates(MainActivity.this,
                     lLowerBound, lUpperBound);
+
+            // Make the progress bar visible
+            findViewById(R.id.retrieving_events_bar).setVisibility(View.VISIBLE);
 
             // Pop up a toast
             Toast.makeText(MainActivity.this, "Searching for events on " +
