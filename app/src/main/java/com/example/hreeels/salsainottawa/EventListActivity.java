@@ -51,8 +51,7 @@ public class EventListActivity extends ActionBarActivity {
      * @param aEventList
      */
     public void setupActivity(ArrayList<Event> aEventList) {
-        Typeface customFont = Typeface.createFromAsset(getAssets(), "bebas_neue_regular.ttf");
-        iSearchResultTitle.setTypeface(customFont);
+        decorateComponents();
 
         activateActionListeners();
 
@@ -65,6 +64,12 @@ public class EventListActivity extends ActionBarActivity {
     public void initializeViewComponents() {
         iSearchResultTitle = (TextView) findViewById(R.id.search_result_title);
         iSearchResultList = (ListView) findViewById(R.id.theListView);
+    }
+
+    public void decorateComponents() {
+        Typeface lCustomFont = Typeface.createFromAsset(getAssets(), "bebas_neue_regular.ttf");
+
+        iSearchResultTitle.setTypeface(lCustomFont);
     }
 
     /**

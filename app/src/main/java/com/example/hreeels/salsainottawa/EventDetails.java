@@ -1,14 +1,11 @@
 package com.example.hreeels.salsainottawa;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,11 +20,6 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.w3c.dom.Text;
-
-import java.util.Date;
-import java.util.logging.Handler;
 
 
 public class EventDetails extends ActionBarActivity {
@@ -52,9 +44,9 @@ public class EventDetails extends ActionBarActivity {
     private Event iEventData;
     private GoogleMap iMap;
 
-    private Typeface custom_font;
-    private Typeface custom_font_bold;
-    private Typeface custom_small_font;
+    private Typeface iCustomFont;
+    private Typeface iCustomFontBold;
+    private Typeface iCustomSmallFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +98,9 @@ public class EventDetails extends ActionBarActivity {
         iEventDescriptionHeader.setText(DEFAULT_DESCRIPTION_HEADER);
         iOrganizerHeader.setText(DEFAULT_ORGANIZER_HEADER);
 
-        custom_font = Typeface.createFromAsset(getAssets(), "bebas_neue_regular.ttf");
-        custom_font_bold = Typeface.createFromAsset(getAssets(), "bebas_neue_bold.ttf");
-        custom_small_font = Typeface.createFromAsset(getAssets(), "Lato-Light.ttf");
+        iCustomFont = Typeface.createFromAsset(getAssets(), "bebas_neue_regular.ttf");
+        iCustomFontBold = Typeface.createFromAsset(getAssets(), "bebas_neue_bold.ttf");
+        iCustomSmallFont = Typeface.createFromAsset(getAssets(), "Lato-Light.ttf");
 
         decorateComponents();
 
@@ -148,14 +140,14 @@ public class EventDetails extends ActionBarActivity {
      * All grooming of view components done in this function.
      */
     private void decorateComponents() {
-        iEventTitle.setTypeface(custom_font);
-        iEventStartTime.setTypeface(custom_font_bold);
-        iEventEndTime.setTypeface(custom_font_bold);
-        iEventDateMonth.setTypeface(custom_font_bold);
-        iEventDateDay.setTypeface(custom_font_bold);
-        iEventPrice.setTypeface(custom_font_bold);
-        iEventDescriptionHeader.setTypeface(custom_font_bold);
-        iOrganizerHeader.setTypeface(custom_font_bold);
+        iEventTitle.setTypeface(iCustomFont);
+        iEventStartTime.setTypeface(iCustomFontBold);
+        iEventEndTime.setTypeface(iCustomFontBold);
+        iEventDateMonth.setTypeface(iCustomFontBold);
+        iEventDateDay.setTypeface(iCustomFontBold);
+        iEventPrice.setTypeface(iCustomFontBold);
+        iEventDescriptionHeader.setTypeface(iCustomFontBold);
+        iOrganizerHeader.setTypeface(iCustomFontBold);
     }
 
     /**
@@ -201,8 +193,6 @@ public class EventDetails extends ActionBarActivity {
 
         setEventPrice(aUpdatedEvent.getCost());
 
-       // setEventDescription(aUpdatedEvent.getDescription());
-
         updateMap(AppUtils.getLocationFromAddress(this, this.getEventData().getVenueAddress()),
                 this.getEventData().getVenueTitle());
     }
@@ -236,13 +226,13 @@ public class EventDetails extends ActionBarActivity {
                 TextView venue_phone_number = (TextView) v.findViewById(R.id.venue_phone_number);
 
                 venue_title.setText(getEventData().getVenueTitle());
-                venue_title.setTypeface(custom_font);
+                venue_title.setTypeface(iCustomFont);
 
                 venue_address.setText(getEventData().getVenueAddress());
-                venue_address.setTypeface(custom_small_font);
+                venue_address.setTypeface(iCustomSmallFont);
 
                 venue_phone_number.setText(getEventData().getVenuePhoneNumber());
-                venue_phone_number.setTypeface(custom_small_font);
+                venue_phone_number.setTypeface(iCustomSmallFont);
 
                 return v;
             }
