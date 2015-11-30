@@ -15,7 +15,7 @@ public interface QueryClient {
     /**
      * This function is called from the database class once
      * the query is complete. The class implementing this interface
-     * can use this function to acquire the qurey result through the parameter.
+     * can use this function to acquire the query result through the parameter.
      *
      * @param aQueryResult
      */

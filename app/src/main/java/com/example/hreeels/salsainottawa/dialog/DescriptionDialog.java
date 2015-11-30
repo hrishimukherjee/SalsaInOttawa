@@ -22,6 +22,9 @@ public class DescriptionDialog extends Dialog {
     private TextView iDescriptionTitle;
     private TextView iEventDescription;
 
+    private Typeface iCustomFont;
+    private Typeface iCustomSmallFont;
+
     private String iDescription;
 
     public DescriptionDialog(Activity aActivity, String aDescription) {
@@ -43,13 +46,13 @@ public class DescriptionDialog extends Dialog {
         iDescriptionTitle.setText("DESCRIPTION");
         iEventDescription.setMovementMethod(new ScrollingMovementMethod());
 
-        Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(),
+        iCustomFont = Typeface.createFromAsset(getContext().getAssets(),
                 "bebas_neue_regular.ttf");
-        Typeface custom_small_font = Typeface.createFromAsset(getContext().getAssets(),
+        iCustomSmallFont = Typeface.createFromAsset(getContext().getAssets(),
                 "Lato-Light.ttf");
 
-        iDescriptionTitle.setTypeface(custom_font);
-        iEventDescription.setTypeface(custom_small_font);
+        iDescriptionTitle.setTypeface(iCustomFont);
+        iEventDescription.setTypeface(iCustomSmallFont);
 
         updateDialog(iDescription);
     }

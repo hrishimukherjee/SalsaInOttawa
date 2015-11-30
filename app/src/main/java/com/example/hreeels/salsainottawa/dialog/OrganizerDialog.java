@@ -25,6 +25,9 @@ public class OrganizerDialog extends Dialog {
     private TextView iOrganizerEmail;
     private TextView iOrganizerWebsite;
 
+    private Typeface iCustomFont;
+    private Typeface iCustomSmallFont;
+
     private Organizer iOrganizer;
 
     public OrganizerDialog(Activity aActivity, Organizer aOrganizer) {
@@ -40,9 +43,9 @@ public class OrganizerDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.organizer_dialog);
 
-        Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(),
+        iCustomFont = Typeface.createFromAsset(getContext().getAssets(),
                 "bebas_neue_regular.ttf");
-        Typeface custom_small_font = Typeface.createFromAsset(getContext().getAssets(),
+        iCustomSmallFont = Typeface.createFromAsset(getContext().getAssets(),
                 "Lato-Light.ttf");
 
         iDialogTitle = (TextView) findViewById(R.id.organizer_title);
@@ -53,11 +56,11 @@ public class OrganizerDialog extends Dialog {
 
         iDialogTitle.setText("ORGANIZER");
 
-        iDialogTitle.setTypeface(custom_font);
-        iOrganizerName.setTypeface(custom_small_font);
-        iOrganizerPhoneNumber.setTypeface(custom_small_font);
-        iOrganizerEmail.setTypeface(custom_small_font);
-        iOrganizerWebsite.setTypeface(custom_small_font);
+        iDialogTitle.setTypeface(iCustomFont);
+        iOrganizerName.setTypeface(iCustomSmallFont);
+        iOrganizerPhoneNumber.setTypeface(iCustomSmallFont);
+        iOrganizerEmail.setTypeface(iCustomSmallFont);
+        iOrganizerWebsite.setTypeface(iCustomSmallFont);
 
         updateDialog(iOrganizer.getTitle(), iOrganizer.getPhoneNumber(),
                 iOrganizer.getEmail(), iOrganizer.getWebsite());
