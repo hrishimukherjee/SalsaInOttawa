@@ -32,6 +32,7 @@
         android:drawSelectorOnTop="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layoutAnimation="@anim/event_list_row_animation"
         android:scrollbars="none"></ListView>
 
 </LinearLayout>
