@@ -2,6 +2,7 @@ package com.example.hreeels.salsainottawa;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
@@ -193,17 +194,45 @@ public class MainActivity extends ActionBarActivity implements QueryClient {
     protected Dialog onCreateDialog(int aId) {
         switch (aId) {
             case Constants.DATE_PICKER_DIALOG_ID:
-                Calendar lCurrentDate = DateUtils.getCurrentCalendar();
-
                 // Set the date picker to the current date
-                return new DatePickerDialog(this, iDatePickerListener,
-                        lCurrentDate.get(Calendar.YEAR),
-                        lCurrentDate.get(Calendar.MONTH),
-                        lCurrentDate.get(Calendar.DATE));
+                return getDatePickerDialog();
         }
         return null;
     }
 
+    /**
+     * Returns a date picker dialog defaulted to the current date.
+     * It also assigns the action listeners for the buttons in the dialog.
+     *
+     * @return the new date picker dialog
+     */
+    public DatePickerDialog getDatePickerDialog() {
+        Calendar lCurrentDate = DateUtils.getCurrentCalendar();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, iDatePickerListener,
+                lCurrentDate.get(Calendar.YEAR),
+                lCurrentDate.get(Calendar.MONTH),
+                lCurrentDate.get(Calendar.DATE));
+
+        // Set the action for when the cancel button is clicked on the date picker
+        datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == DialogInterface.BUTTON_NEGATIVE) {
+                            // Re-activate the action listeners for the activity
+                            activateActionListeners();
+                        }
+                    }
+                });
+
+        // Set the date picker to the current date
+        return datePickerDialog;
+    }
+
+    /**
+     * On click listener for the OK button of the date picker
+     */
     private DatePickerDialog.OnDateSetListener iDatePickerListener
             = new DatePickerDialog.OnDateSetListener() {
 
