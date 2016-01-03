@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 
+import com.example.hreeels.salsainottawa.core.Event;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.ParseObject;
 
@@ -111,5 +112,36 @@ public class AppUtils {
         }
 
         return p1;
+    }
+
+    /**
+     * Returns a ParseObject for the Event table with the Organizer
+     * and Venue pointers. Assumes that the organizer and venue ID being
+     * provided already exist in the database.
+     *
+     * @param aEvent the event to be converted to a parse object
+     * @param aOrganizerID the ID of the Organizer
+     * @param aVenueID the ID of the Venue
+     * @return the converted ParseObject for the "Event" tale
+     */
+    public static ParseObject getParseEventObject(Event aEvent, String aOrganizerID,
+                                           String aVenueID) {
+        ParseObject newEvent = new ParseObject("Event");
+
+        ParseObject organizerPointer = ParseObject.createWithoutData("Organizer", aOrganizerID);
+        newEvent.put("organizer_id", organizerPointer);
+
+        ParseObject venuePointer = ParseObject.createWithoutData("Venue", aVenueID);
+        newEvent.put("venue_id", venuePointer);
+
+        newEvent.put("event_title", aEvent.getTitle());
+        newEvent.put("event_date", aEvent.getDate());
+        newEvent.put("event_desc", aEvent.getDescription());
+        newEvent.put("event_start_time", aEvent.getStartTime());
+        newEvent.put("event_end_time", aEvent.getEndTime());
+        newEvent.put("event_cost", aEvent.getCost());
+        newEvent.put("event_website", aEvent.getWebsite());
+
+        return newEvent;
     }
 }

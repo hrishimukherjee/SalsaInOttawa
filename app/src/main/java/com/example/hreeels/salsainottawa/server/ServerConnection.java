@@ -13,7 +13,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -53,11 +52,14 @@ public class ServerConnection {
         Offset the date filters from PST to EST. This is done because PARSE stores
         dates in PST whereas this app uses EST as it's time-zone.
          */
-        aLowerBound = DateUtils.applyHourOffsetToDate(aLowerBound, Constants.PST_TO_EST_OFFSET);
-        aUpperBound = DateUtils.applyHourOffsetToDate(aUpperBound, Constants.PST_TO_EST_OFFSET);
+        aLowerBound = DateUtils.applyHourOffsetToDate(aLowerBound, Constants.UTC_TO_EST_OFFSET);
+        aUpperBound = DateUtils.applyHourOffsetToDate(aUpperBound, Constants.UTC_TO_EST_OFFSET);
 
         // BUG: Offset lower bound by -1 second since greaterThanOrEqualTo behaving as greaterThan
         aLowerBound = DateUtils.applySecondsOffsetToDate(aLowerBound, -1);
+
+        System.out.println(aLowerBound);
+        System.out.println(aUpperBound);
 
         // Apply date filters
         query.whereGreaterThanOrEqualTo("event_date", aLowerBound);
@@ -80,6 +82,8 @@ public class ServerConnection {
                         iQueryResults.add(lNewEvent);
                     }
 
+                    System.out.println(iQueryResults);
+
                     // Pass in the results to the reciewer class
                     aReceiverClass.queryDone(iQueryResults);
                 } else {
@@ -90,4 +94,51 @@ public class ServerConnection {
         });
     }
 
+    public void addEventToServer(Event aEvent, String aOrgID, String aVenID) {
+        ParseObject newEvent = AppUtils.getParseEventObject(aEvent, aOrgID, aVenID);
+
+        newEvent.saveInBackground();
+    }
+
+    /**
+     * Adds the given event object to the Parse database
+     * for the number of times it recurs. The date of the
+     * event is incremented by the 'recursEverXDays' parameter,
+     * and then added to the database as a new row.
+     *
+     * @param aEvent
+     * @param aOrganizerID
+     * @param aVenueID
+     * @param aRecursEveryXDays
+     * @param aNumRecurs
+     */
+    public void addRecurringEventToServer(Event aEvent, String aOrganizerID,
+                                          String aVenueID, int aRecursEveryXDays,
+                                          int aNumRecurs) {
+        System.out.println("Preparing recurring event insertion...");
+        ArrayList<ParseObject> lEventList = new ArrayList<ParseObject>();
+
+        System.out.println("Size of event list: " + lEventList.size());
+        System.out.println("Entering Loop...");
+        for(int i = 0; i < aNumRecurs; i++) {
+            System.out.println("Converting to Parse Event...");
+            ParseObject lParseEvent = AppUtils.getParseEventObject(aEvent, aOrganizerID,
+                    aVenueID);
+
+            System.out.println("Adding Parse Event...");
+            lEventList.add(lParseEvent);
+
+            System.out.println("Incrementing date (" + i + ")...");
+            System.out.println("Old Date: " + aEvent.getDate());
+            // Increment the date by the recur amount
+            Date lIncrementedDate = DateUtils.applyDayOffsetToDate(aEvent.getDate(),
+                    aRecursEveryXDays);
+
+            aEvent.setDate(lIncrementedDate);
+
+            System.out.println("New Date: " + aEvent.getDate());
+        }
+
+        ParseObject.saveAllInBackground(lEventList);
+    }
 }

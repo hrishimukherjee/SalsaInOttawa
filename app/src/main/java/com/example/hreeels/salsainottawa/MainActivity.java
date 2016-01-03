@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hreeels.salsainottawa.core.Event;
+import com.example.hreeels.salsainottawa.factory.EventFactory;
 import com.example.hreeels.salsainottawa.server.QueryClient;
 import com.example.hreeels.salsainottawa.server.ServerConnection;
 import com.example.hreeels.salsainottawa.utils.AppUtils;

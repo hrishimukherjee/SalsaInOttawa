@@ -6,7 +6,7 @@ package com.example.hreeels.salsainottawa.utils;
 public class Constants {
 
     // DATE & TIME RELATED CONSTANTS
-    public static final int PST_TO_EST_OFFSET = -5;
+    public static final int UTC_TO_EST_OFFSET = -5;
 
     // GUI RELATED CONSTANTS
     public static final int DATE_PICKER_DIALOG_ID = 0;

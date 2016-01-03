@@ -1,7 +1,11 @@
 package com.example.hreeels.salsainottawa.factory;
 
 import com.example.hreeels.salsainottawa.core.Event;
+import com.example.hreeels.salsainottawa.utils.Constants;
+import com.example.hreeels.salsainottawa.utils.DateUtils;
 import com.parse.ParseObject;
+
+import java.util.Date;
 
 /**
  * Created by Hreeels on 2015-06-30.
@@ -19,7 +23,12 @@ public class EventFactory {
         Event lEvent = new Event(aEventData.getString("event_title"));
 
         lEvent.setDescription(aEventData.getString("event_desc"));
-        lEvent.setDate(aEventData.getDate("event_date"));
+
+        // Apply EST to UTC timezone offset
+        Date lDate = DateUtils.applyHourOffsetToDate(aEventData.getDate("event_date"),
+                -(Constants.UTC_TO_EST_OFFSET));
+        lEvent.setDate(lDate);
+
         lEvent.setStartTime(aEventData.getString("event_start_time"));
         lEvent.setEndTime(aEventData.getString("event_end_time"));
         lEvent.setCost(aEventData.getString("event_cost"));

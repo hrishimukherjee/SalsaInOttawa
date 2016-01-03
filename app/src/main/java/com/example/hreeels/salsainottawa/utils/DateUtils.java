@@ -37,6 +37,32 @@ public class DateUtils {
     }
 
     /**
+     * Creates a custom date with a year, month, date,
+     * hour, minute, and second.
+     *
+     * @param aYear the year of the date
+     * @param aMonth the month of the date
+     * @param aDate the day of the date
+     * @param aHour the hour of the date
+     * @param aHour the minute of the date
+     * @param aHour the second of the date
+     * @return the Date object
+     */
+    public static Date createCustomDate(int aYear, int aMonth, int aDate,
+                                        int aHour, int aMinute, int aSecond) {
+        GregorianCalendar lCalendar = DateUtils.getCurrentCalendar();
+
+        lCalendar.set(Calendar.YEAR, aYear);
+        lCalendar.set(Calendar.MONTH, aMonth);
+        lCalendar.set(Calendar.DATE, aDate);
+        lCalendar.set(Calendar.HOUR_OF_DAY, aHour);
+        lCalendar.set(Calendar.MINUTE, aMinute);
+        lCalendar.set(Calendar.SECOND, aSecond);
+
+        return lCalendar.getTime();
+    }
+
+    /**
      * Returns the lowest time of the given date.
      * For example: For a given date Nov 28, 2015
      * - this function would return Nov 28, 2015 00:00:00.
@@ -162,6 +188,22 @@ public class DateUtils {
         GregorianCalendar lCalendar = DateUtils.dateToCalendar(aDate);
 
         lCalendar.add(Calendar.SECOND, aOffsetAmount);
+
+        return lCalendar.getTime();
+    }
+
+    /**
+     * Applies the given amount of offset to the DATE of the date
+     * provided. Offset can be both negative and positive.
+     *
+     * @param aDate The Date object to be offset for date
+     * @param aOffsetAmount the amount to offset by
+     * @return the new Date object offset for date
+     */
+    public static Date applyDayOffsetToDate(Date aDate, int aOffsetAmount) {
+        GregorianCalendar lCalendar = DateUtils.dateToCalendar(aDate);
+
+        lCalendar.add(Calendar.DATE, aOffsetAmount);
 
         return lCalendar.getTime();
     }
