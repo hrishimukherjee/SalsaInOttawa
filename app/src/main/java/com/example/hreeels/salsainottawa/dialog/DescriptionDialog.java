@@ -63,6 +63,10 @@ public class DescriptionDialog extends Dialog {
      * @param aDescription description of the event
      */
     public void updateDialog(String aDescription) {
-        iEventDescription.setText(aDescription);
+        if(!aDescription.equals("")) {
+            iEventDescription.setText(aDescription);
+        } else {
+            iEventDescription.setText("No Description Provided.");
+        }
     }
 }

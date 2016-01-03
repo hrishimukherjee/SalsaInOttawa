@@ -292,7 +292,7 @@ public class EventDetails extends ActionBarActivity {
         if(aPrice.equals("0")) {
             iEventPrice.setTextSize(18);
             iEventPrice.setText("FREE");
-        } else if(aPrice.equals("-1")) {
+        } else if(aPrice.equals("")) {
             iEventPrice.setTextSize(18);
             iEventPrice.setText("TBA");
         } else {

@@ -90,7 +90,9 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView theSecondTextView = (TextView) theView.findViewById(R.id.textView2);
 
         if(myEvent.getCost().equals("0")) {
-            theSecondTextView.setText("FREE");
+            theSecondTextView.setText("$FREE");
+        } else if(myEvent.getCost().equals("")) {
+            theSecondTextView.setText("$TBA");
         } else {
             theSecondTextView.setText("$" + myEvent.getCost());
         }
