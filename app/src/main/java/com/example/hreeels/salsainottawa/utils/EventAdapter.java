@@ -53,15 +53,17 @@ public class EventAdapter extends ArrayAdapter<Event> {
         for(int i = 0; i < getCount(); i++) {
             // Set 1 of 3 unique colors to each position in ArrayList
             if(currentBackgroundID == 0) {
-                iViewBackgroundDrawables.add(R.drawable.rounded_button_cyan_a100);
+                iViewBackgroundDrawables.add(R.drawable.rounded_button_orange_shade_1);
             } else if(currentBackgroundID == 1) {
-                iViewBackgroundDrawables.add(R.drawable.rounded_button_cyan_a200);
-            } else {
-                iViewBackgroundDrawables.add(R.drawable.rounded_button_cyan_a400);
+                iViewBackgroundDrawables.add(R.drawable.rounded_button_orange_shade_2);
             }
 
+            /* else {
+                iViewBackgroundDrawables.add(R.drawable.rounded_button_orange_shade_3);
+            } */
+
             // Cycle color ID between 0 and 2
-            if(currentBackgroundID < 2) {
+            if(currentBackgroundID < 1) {
                 currentBackgroundID++;
             } else {
                 currentBackgroundID = 0;
