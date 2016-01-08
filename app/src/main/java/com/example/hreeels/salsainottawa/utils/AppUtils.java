@@ -8,7 +8,10 @@ import com.example.hreeels.salsainottawa.core.Event;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.ParseObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -143,5 +146,25 @@ public class AppUtils {
         newEvent.put("event_website", aEvent.getWebsite());
 
         return newEvent;
+    }
+
+    /**
+     * Sorts the list of events passed into the function by date
+     * in ascending order.
+     *
+     * @param aEventList the list of events to be sorted
+     */
+    public static void sortEventListByDate(ArrayList<Event> aEventList) {
+        Collections.sort(aEventList, new Comparator<Event>() {
+            @Override
+            public int compare(Event lhs, Event rhs) {
+                // If either date is null return 0
+                if(lhs.getDate() == null || rhs.getDate() == null) {
+                    return 0;
+                }
+
+                return lhs.getDate().compareTo(rhs.getDate());
+            }
+        });
     }
 }

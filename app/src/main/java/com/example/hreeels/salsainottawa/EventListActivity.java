@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hreeels.salsainottawa.core.Event;
+import com.example.hreeels.salsainottawa.utils.AppUtils;
 import com.example.hreeels.salsainottawa.utils.EventAdapter;
 
 import java.lang.reflect.Array;
@@ -126,6 +127,9 @@ public class EventListActivity extends ActionBarActivity {
      */
     public void updateEventList(ArrayList<Event> aEventList) {
         if(aEventList.size() != 0) {
+            // Sort the list by event date
+            AppUtils.sortEventListByDate(aEventList);
+
             // Initialize the Array Adapter with the event list
             ArrayAdapter theAdapter = new EventAdapter(this, aEventList);
 
