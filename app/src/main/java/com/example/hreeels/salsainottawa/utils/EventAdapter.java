@@ -89,6 +89,15 @@ public class EventAdapter extends ArrayAdapter<Event> {
         theTextView.setText(myEvent.getTitle());
         theTextView.setTypeface(customFontBold);
 
+        TextView dateTextView = (TextView) theView.findViewById(R.id.event_list_row_date);
+
+        String lMonthString = (AppUtils.getMonthString(myEvent.getDate().getMonth()))
+                .substring(0, 3);
+        String lDateString = String.valueOf(myEvent.getDate().getDate());
+
+        dateTextView.setText(lMonthString + " " + lDateString);
+        dateTextView.setTypeface(customFont);
+
         TextView theSecondTextView = (TextView) theView.findViewById(R.id.textView2);
 
         if(myEvent.getCost().equals("0")) {
