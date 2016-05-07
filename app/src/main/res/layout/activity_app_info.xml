@@ -1,0 +1,98 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.azucarottawa.app.salsainottawa.AppInfoActivity"
+        android:background="@drawable/activity_background"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/info_what_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WHAT IS SALSA IN OTTAWA?"
+            android:textSize="25dp"
+            android:textColor="#333333"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_button_orange_shade_2"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center|left"/>
+
+        <TextView
+            android:id="@+id/info_what_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:maxLines="10"
+            android:textColor="#333333"
+            android:scrollbars="vertical"
+            android:background="@drawable/rounded_background_ffffcc"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/info_who_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WHO MONITORS SALSA IN OTTAWA?"
+            android:textSize="25dp"
+            android:textColor="#333333"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_button_orange_shade_2"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center|left"/>
+
+        <TextView
+            android:id="@+id/info_who_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:maxLines="10"
+            android:textColor="#333333"
+            android:scrollbars="vertical"
+            android:background="@drawable/rounded_background_ffffcc"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:autoLink="web|email"/>
+
+        <TextView
+            android:id="@+id/info_dev_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WHO DEVELOPED THIS APP?"
+            android:textSize="25dp"
+            android:textColor="#333333"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_button_orange_shade_2"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center|left"/>
+
+        <TextView
+            android:id="@+id/info_dev_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:textColor="#333333"
+            android:background="@drawable/rounded_background_ffffcc"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:autoLink="web|email"/>
+
+    </LinearLayout>
+
+</ScrollView>
