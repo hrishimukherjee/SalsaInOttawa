@@ -1,4 +1,6 @@
 # SalsaInOttawa
+**Authors:** Hrishi Mukherjee
+
 Salsa in Ottawa is as simple as its name. It allows you to find latin dance events in the Ottawa-Gatineau region.
 
 This application is officially available on the Google Play Store at the following link: 
