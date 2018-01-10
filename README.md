@@ -1,4 +1,4 @@
-# SalsaInOttawa
+# Salsa in Ottawa
 **Authors:** Hrishi Mukherjee
 
 Salsa in Ottawa is as simple as its name. It allows you to find latin dance events in the Ottawa-Gatineau region.
